@@ -26,9 +26,10 @@
 
         <button
             type="submit"
-            class="w-full rounded bg-blue-600 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
+            :disabled="loading"
+            class="w-full rounded bg-blue-600 py-2 text-sm font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
-            登录
+            {{ loading ? "登录中..." : "登录" }}
         </button>
     </form>
 </template>
@@ -36,19 +37,41 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const router = useRouter();
 
 const email = ref("");
 const password = ref("");
 const error = ref("");
+const loading = ref(false);
 
-function handleLogin() {
-    if (email.value === "test@example.com" && password.value === "123456") {
-        error.value = "";
-        router.push("/");
-    } else {
-        error.value = "邮箱或密码错误";
+const apiClient = axios.create({
+    baseURL: import.meta.env.VITE_API_BASEURL,
+    headers: { "Content-Type": "application/json" },
+});
+
+async function handleLogin() {
+    error.value = "";
+    loading.value = true;
+
+    try {
+        const { data } = await apiClient.post("/login", {
+            email: email.value,
+            password: password.value,
+        });
+
+        if (data.ok && data.data?.token) {
+            Cookies.set("token", data.data.token, { expires: 1 });
+            router.push("/");
+        } else {
+            error.value = data.message || "登录失败，请重试";
+        }
+    } catch (err) {
+        error.value = err.response?.data?.message || "网络错误，请稍后重试";
+    } finally {
+        loading.value = false;
     }
 }
 </script>
