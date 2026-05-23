@@ -1,4 +1,5 @@
 <template>
+    <div class="flex w-full min-h-screen items-center justify-center">
     <form @submit.prevent="handleLogin" class="w-full max-w-sm rounded-lg bg-white p-8 shadow-md">
         <h2 class="mb-6 text-center text-2xl font-bold text-gray-800">登录</h2>
 
@@ -31,7 +32,7 @@
         >
             {{ loading ? "登录中..." : "登录" }}
         </button>
-    </form>
+    </form></div>
 </template>
 
 <script setup>

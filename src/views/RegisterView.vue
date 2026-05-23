@@ -1,4 +1,5 @@
 <template>
+    <div class="flex w-full min-h-screen items-center justify-center">
     <form
         @submit.prevent="handleRegister"
         class="w-full max-w-sm rounded-lg bg-white p-8 shadow-md"
@@ -45,7 +46,7 @@
         >
             {{ loading ? "注册中..." : "注册" }}
         </button>
-    </form>
+    </form></div>
 </template>
 
 <script setup>
