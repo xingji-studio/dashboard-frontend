@@ -11,7 +11,7 @@
                 </div>
                 <div>
                     <label class="mb-1 block text-sm font-medium text-gray-700">姓名</label>
-                    <p class="rounded border border-gray-300 px-3 py-2 text-sm">{{ user.name }}</p>
+                    <p class="rounded border border-gray-300 px-3 py-2 text-sm">{{ user.username }}</p>
                 </div>
             </div>
         </div>
