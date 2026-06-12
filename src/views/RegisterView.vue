@@ -99,8 +99,8 @@ async function handleRegister() {
             email: email.value,
         });
 
-        if (data.ok && data.data?.message) {
-            successMsg.value = data.data.message;
+        if (data.ok && data.message?) {
+            successMsg.value = data.message;
             setTimeout(() => router.push("/login"), 1500);
         } else {
             error.value = data.message || "注册失败，请重试";
