@@ -99,7 +99,7 @@ async function handleRegister() {
             email: email.value,
         });
 
-        if (data.ok && data.message?) {
+        if (data.ok && data.message) {
             successMsg.value = data.message;
             setTimeout(() => router.push("/login"), 1500);
         } else {
